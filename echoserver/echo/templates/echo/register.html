@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+    <h1>Регистрация</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Логин -->
+        <div>
+            <label for="{{ form.username.id_for_label }}">Логин</label>
+            {{ form.username }}  <!-- Django автоматически сгенерирует правильный HTML для поля -->
+        </div>
+
+        <!-- Пароль -->
+        <div>
+            <label for="{{ form.password.id_for_label }}">Пароль</label>
+            {{ form.password }}
+        </div>
+
+        <!-- Электронная почта -->
+        <div>
+            <label for="{{ form.email.id_for_label }}">Электронная почта</label>
+            {{ form.email }}
+        </div>
+
+        <!-- Полное имя -->
+        <div>
+            <label for="{{ form.full_name.id_for_label }}">Полное имя</label>
+            {{ form.full_name }}
+        </div>
+
+        <!-- Роль -->
+        <div>
+            <label for="{{ form.role.id_for_label }}">Роль</label>
+            {{ form.role }}
+        </div>
+
+        <!-- Подтверждение пароля -->
+        <div>
+            <label for="{{ form.password_confirm.id_for_label }}">Подтверждение пароля</label>
+            {{ form.password_confirm }}
+        </div>
+
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+</body>
+</html>

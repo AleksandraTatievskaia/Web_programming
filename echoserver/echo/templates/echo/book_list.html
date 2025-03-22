@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Список книг</title>
+</head>
+<body>
+    <h1>Список книг</h1>
+
+    <!-- Приветствие для авторизованных пользователей -->
+    {% if user.is_authenticated %}
+        <p>Привет, {{ user.username }}!</p>
+        <a href="{% url 'add_book' %}">Добавить новый элемент</a>  <!-- Доступно только авторизованным пользователям -->
+    {% else %}
+        <p>Вы не авторизованы. Пожалуйста, <a href="{% url 'login' %}">войдите</a> или <a href="{% url 'register' %}">зарегистрируйтесь</a>.</p> <!-- Для неавторизованных пользователей -->
+    {% endif %}
+
+    <!-- Список книг -->
+    <ul>
+        {% for book in page_obj %}
+            <li>
+                {{ book.title }} - {{ book.author }} ({{ book.price }} $)
+                {% if user.is_authenticated and user.role == 'admin' %}
+                    <a href="{% url 'edit_book' book.id %}">Редактировать</a>  <!-- Доступно только администратору -->
+                    <a href="{% url 'delete_book' book.id %}">Удалить</a>  <!-- Доступно только администратору -->
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>Книги не найдены</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Пагинация -->
+    <div>
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; К началу</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+            {% endif %}
+
+            <span class="current">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Выход</a>  <!-- Кнопка выхода -->
+    {% endif %}
+
+</body>
+</html>
