@@ -1,0 +1,19 @@
+<!-- checkout.html -->
+<h1>Оформление заказа</h1>
+<h2>Ваши товары:</h2>
+<ul>
+    {% for item in cart_items %}
+        <li>{{ item.book.title }} - {{ item.quantity }} шт. ({{ item.total_price }} $)</li>
+    {% empty %}
+        <li>Ваша корзина пуста.</li>
+    {% endfor %}
+</ul>
+
+<p>Общая стоимость: {{ total_price }} $</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Оформить заказ</button>
+</form>
+
+<a href="{% url 'cart' %}">Вернуться в корзину</a>

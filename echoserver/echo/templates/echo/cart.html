@@ -1,0 +1,11 @@
+<h1>Ваша корзина</h1>
+<ul>
+    {% for item in cart_items %}
+        <li>{{ item.book.title }} - {{ item.quantity }} шт. ({{ item.total_price }} $)</li>
+    {% empty %}
+        <li>Корзина пуста</li>
+    {% endfor %}
+</ul>
+<p>Общая стоимость: {{ total_price }} $</p>
+<a href="{% url 'checkout' %}">Оформить заказ</a>
+<a href="{% url 'book_list' %}">Назад</a>

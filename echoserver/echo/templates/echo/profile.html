@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+</head>
+<body>
+    <h1>Личный кабинет</h1>
+
+    <p>Привет, {{ user.username }}! <a href="{% url 'edit_profile' %}">Редактировать профиль</a></p>
+
+    <ul>
+        <li>Имя пользователя: {{ user.username }}</li>
+        <li>Email: {{ user.email }}</li>
+        <!-- Добавьте другие поля, если необходимо -->
+    </ul>
+
+    <a href="{% url 'book_list' %}">Назад к списку книг</a>
+</body>
+</html>
